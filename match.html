@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>算母音子音</title>
+  </head>
+  <body>
+    <h4>輸入字串</h4>
+    <input type="text" id="test" name="test" value="" oninput="getCount()" />
+    <!-- <button onClick="getCount()">看看有多少母音和子音</button> -->
+    <p id="demo"></p>
+
+    <script>
+      function getCount(words) {
+        var countObj = null;
+        var words = document.querySelector("#test").value;
+
+        //若符合字串類型以及非空值
+        if (typeof words === "string" && words != "") {
+          words = words.toString();
+          //1.輸出符合 a e i o u陣列(忽略大小寫 /i)
+          var isMatchStr = words.match(/[aeiou]/gi);
+          //輸出符合 a-z 所有字母陣列(忽略大小寫 /i)
+          var allMatchStr = words.match(/[a-z]/gi);
+          //2.未符合個數
+          var notMatchStrLength = 0;
+          //若 1 & 2 都不等於 null
+          if (allMatchStr != null && isMatchStr != null) {
+            //2-1 (輸出非 a e i o u 個數)
+            notMatchStrLength = allMatchStr.length - isMatchStr.length;
+          }
+
+          //設定物件 {符合 a e i o u 個數,不符合個數}
+          countObj = {
+            vowels: isMatchStr != null ? isMatchStr.length : 0,
+            consonants: notMatchStrLength
+          };
+
+          //   console.log(countObj);
+        } else {
+          //不符合以上條件 個數設定皆為 0
+          countObj = { vowels: 0, consonants: 0 };
+        }
+
+        // return countObj;
+        document.querySelector("#demo").innerHTML =
+          "word: " +
+          words +
+          "<br>" +
+          "vowels: " +
+          countObj.vowels +
+          "<br>" +
+          "consonants: " +
+          countObj.consonants +
+          "<br>" +
+          "length: " +
+          words.length +
+          "<br>";
+      }
+    </script>
+  </body>
+</html>
